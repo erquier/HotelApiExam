@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.mycompany.hotelapi.Reservacion" table = "reservacion">
+      
+      <meta attribute = "class-description">
+          
+      </meta>
+      
+      <id name = "IDreserva" type = "int" column = "IDreserva">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "IDcliente" type = "int" column = "IDcliente"/>
+      <property name = "fechallegada" type = "date" column = "fechallegada" />
+      <property name = "fechasalida" type = "date" column = "fechasalida" />
+      <property name = "costo" type = "float" column = "costo" />
+   </class>
+</hibernate-mapping>
+

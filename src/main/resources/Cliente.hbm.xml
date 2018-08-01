@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.mycompany.hotelapi.Cliente" lazy = "false" table = "cliente">
+      
+      <meta attribute = "class-description">
+         Detalle de cliente. 
+      </meta>
+      
+      <id name = "IDcliente" type = "int" column = "IDcliente">
+         <generator class="increment"/>
+      </id>
+      
+      <property name = "nombre" type = "string" column = "nombre"/>
+      <property name = "telefono" type = "string" column = "telefono"/>
+      <property name = "direccion" type = "string" column = "direccion"/>
+      <property name = "estado" type = "int" column = "estado"/>
+   </class>
+</hibernate-mapping>
