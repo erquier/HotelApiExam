@@ -87,6 +87,10 @@ public class Usuario {
         this.genero = genero;
     }
     
+    public String getInfo(){
+    return this.nombre +"  "+ this.email +" "+ this.password;
+    }
+    
     
     
     

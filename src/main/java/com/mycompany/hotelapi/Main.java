@@ -1,6 +1,7 @@
 package com.mycompany.hotelapi;
 
 import com.google.gson.Gson;
+import static java.rmi.server.LogStream.log;
 import java.util.ArrayList;
 import java.util.Date;
 import static spark.Spark.*;
@@ -22,6 +23,8 @@ import spark.Filter;
 import spark.Spark;
 import java.util.*;
 import java.text.*;
+
+
 
 public class Main {
 
@@ -46,11 +49,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-//        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-//        System.out.println("CFG and HBM loaded");
-//        Session session = factory.openSession();
-//        session.beginTransaction();
-//        System.out.println("transaction began");
+        
+        staticFiles.location("/public");
+
+        
+    before("/protected/*", (request, response) -> {
+                if (request.session(true).attribute("user") == null) {
+                    halt(401, "Go Away!");
+                }
+            });
 
         Spark.exception(Exception.class, (exception, request, response) -> {
             exception.printStackTrace();
@@ -68,8 +75,8 @@ public class Main {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-//
-//        //Login
+
+        //Login
 //        post("/login", (request, response) -> {
 //            String user = request.queryParams("user");
 //            String pass = request.queryParams("pass");
@@ -81,6 +88,61 @@ public class Main {
 //            }
 //            return null;
 //        });
+
+
+        get("/", (req, res) -> {
+
+            String username = req.session().attribute(SESSION_NAME);
+            String nombre = req.session().attribute(SESSION_NAME);
+            String password = req.session().attribute(SESSION_NAME);
+            String email = req.session().attribute(SESSION_NAME);
+            String genero = req.session().attribute(SESSION_NAME);
+            if (username == null) {
+
+                return "<html><body>login please: <form action=\"/login\" method=\"POST\">"
+                        + "<input type=\"text\" username=\"username\" value=\"Username\"/><br>"
+                        + "<input type=\"text\" password=\"password\"/><br>"
+                        + "<input type=\"text\" nombre=\"nombre\"/><br>"
+                        + "<input type=\"text\" email=\"email\"/><br>"
+                        + "<input type=\"text\" genero=\"genero\"/><br>"
+                        + "<br><br><input type=\"submit\" value=\"go\"/>"
+                        + "</form></body></html>";
+            } else {
+
+                return String.format("<html><body>Hello, %s!</body></html>", username);
+            }
+        
+        });
+        
+ 
+    	 
+//        post("/login", (req, res) -> {
+//            String username = req.queryParams("username");
+//            String nombre = req.queryParams("nombre");
+//            String password = req.queryParams("password");
+//            String email = req.queryParams("email");
+//            String genero = req.queryParams("genero");
+//
+//            ArrayList<Usuario> lista = req.session().attribute("username");
+//
+//            if (lista == null) {
+//                return "list equals null , you can't Log in";
+//            }
+//
+//            boolean inicioSesion = false;
+//            for (Usuario u : lista) {
+//
+//                if (u.getNombre() == nombre) {
+//                    req.session().attribute("usuarioIniciado", u);
+//                    inicioSesion = true;
+//                }
+//            }
+//            if (inicioSesion) {
+//                return "Loged in succesfully";
+//            }
+//
+//            return "not loged, need to log in";
+//        });//FIN INICIO SESION
 
         post("/login", (req, res) -> {
             String username = req.queryParams("username");
@@ -110,36 +172,36 @@ public class Main {
             return new Gson().toJson("Usuario registrado");
 
         });
-
-        post("/cliente", (req, res) -> {
-            String nombre = req.queryParams("nombre");
-            String email = req.queryParams("email");
-            String password = req.queryParams("password");
-            String direccion = req.queryParams("direccion");
-            String telefono = req.queryParams("telefono");
-
-            int estado = Integer.parseInt(req.queryParams("estado"));
-
-            String insertID = "";
-            Session session = factory.openSession();
-            Transaction tx = null;
-
-            try {
-                tx = session.beginTransaction();
-                Cliente cliente = new Cliente(nombre, email, password, direccion, telefono, estado);
-                insertID = session.save(cliente).toString();
-                tx.commit();
-
-            } catch (HibernateException e) {
-                if (tx != null) {
-                    tx.rollback();
-                }
-                e.printStackTrace();
-            } finally {
-                session.close();
-            }
-            return new Gson().toJson("Agregado");
-        });
+//
+//        post("/cliente", (req, res) -> {
+//            String nombre = req.queryParams("nombre");
+//            String email = req.queryParams("email");
+//            String password = req.queryParams("password");
+//            String direccion = req.queryParams("direccion");
+//            String telefono = req.queryParams("telefono");
+//
+//            int estado = Integer.parseInt(req.queryParams("estado"));
+//
+//            String insertID = "";
+//            Session session = factory.openSession();
+//            Transaction tx = null;
+//
+//            try {
+//                tx = session.beginTransaction();
+//                Cliente cliente = new Cliente(nombre, email, password, direccion, telefono, estado);
+//                insertID = session.save(cliente).toString();
+//                tx.commit();
+//
+//            } catch (HibernateException e) {
+//                if (tx != null) {
+//                    tx.rollback();
+//                }
+//                e.printStackTrace();
+//            } finally {
+//                session.close();
+//            }
+//            return new Gson().toJson("Agregado");
+//        });
 
 //        
 //     //hacer reserva   
