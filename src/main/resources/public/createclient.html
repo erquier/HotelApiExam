@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+
+
+<title>Hotels</title>
+<script src= "app.js"></script>
+
+  </head>
+<body>
+
+  <div id="navbar" class="z-depth-2">
+  <img/>
+  <a href="/index.html/">Home</a>
+  <a href="/reserva.html/">Reserve</a>
+  <a href="/login.html/">Login</a>
+  <a href="/admin.html/">Administrativo</a>
+  </div>
+
+
+<div id="loginform">
+
+
+  <form id="formulario" method="post" class="center-align">
+
+      <h4>Nombre<h4>
+      <input type='string' name='nombre'/>
+      <br>
+
+      <h4>Email</h4>
+      <input type="string" name=  "email"/>
+      <br>
+
+      <h4>password</h4>
+      <input type="string" name=  "password" />
+      <br>
+
+      <h4>Telefono</h4>
+      <input type="string" name=  "telefono" />
+      <br>
+
+      <h4>Direccion</h4>
+      <input type="string" name="direccion"/>
+      <br>
+
+      <input type='submit' form="formulario" value="Registrar" class="btn" style="margin-top:15px;border:none;">
+  </form>
+</div>
+
+
+
+<div id="footer" class="z-depth-2" style="bottom:0;">
+  <p>(c) 2018 hotels all rights reserved</p>
+</div>
+
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+<style>
+/*brackground animation*/
+body{
+  animation: gradient 6s ease-in-out infinite;
+}
+@@keyframes gradient {
+0%{ background: blue;}
+25%{ background: red;}
+50%{ background: yellow;}
+75%{ background: black;}
+
+
+} /*end keyframe*/
+/*end background animation*/
+
+
+
+
+#navbar {
+  padding: 20px;
+  background: #0F2027;
+}
+#navbar a{
+  padding: 10px 10px;
+  color:white;
+}
+
+#formulario{
+  margin-top: 150px;
+  margin-bottom: 150px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#formulario h4{
+  font-size: 18px;
+}
+#formulario input{
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: solid thin black;
+}
+#formulario input:focus{
+  border-bottom: solid thin black;
+  outline: none;
+}
+#footer{
+  color:white;
+  background: #0F2027;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 22px;
+}
+</style>

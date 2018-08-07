@@ -1,6 +1,11 @@
 package com.mycompany.hotelapi;
 
 import com.google.gson.Gson;
+import static com.mycompany.hotelapi.Main.userUsernameMap;
+import static j2html.TagCreator.article;
+import static j2html.TagCreator.b;
+import static j2html.TagCreator.p;
+import static j2html.TagCreator.span;
 import static java.rmi.server.LogStream.log;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,10 +28,16 @@ import spark.Filter;
 import spark.Spark;
 import java.util.*;
 import java.text.*;
-
-
+import java.util.concurrent.ConcurrentHashMap;
+import jdk.nashorn.internal.objects.Global;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONObject;
 
 public class Main {
+
+    // this map is shared between sessions and threads, so it needs to be thread-safe (http://stackoverflow.com/a/2688817)
+    static Map<org.eclipse.jetty.websocket.api.Session, String> userUsernameMap = new ConcurrentHashMap<>();
+    static int nextUserNumber = 1; //Used for creating the next username
 
     private static final String SESSION_NAME = "username";
     private static SessionFactory factory;
@@ -49,15 +60,23 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        
+
         staticFiles.location("/public");
 
-        
-    before("/protected/*", (request, response) -> {
-                if (request.session(true).attribute("user") == null) {
-                    halt(401, "Go Away!");
-                }
-            });
+        webSocket("/chat", ChatWebSocketHandler.class);
+        init();
+        before((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Request-Method", "*");
+            response.header("Access-Control-Allow-Headers", "*");
+
+        });
+
+        before("/protected/*", (request, response) -> {
+            if (request.session(true).attribute("user") == null) {
+                halt(401, "Go Away!");
+            }
+        });
 
         Spark.exception(Exception.class, (exception, request, response) -> {
             exception.printStackTrace();
@@ -88,9 +107,8 @@ public class Main {
 //            }
 //            return null;
 //        });
-
-
-        get("/", (req, res) -> {
+        //LOGIN---------------------------------------------------------------------------------------------
+        get("/login", (req, res) -> {
 
             String username = req.session().attribute(SESSION_NAME);
             String nombre = req.session().attribute(SESSION_NAME);
@@ -111,11 +129,9 @@ public class Main {
 
                 return String.format("<html><body>Hello, %s!</body></html>", username);
             }
-        
+
         });
-        
- 
-    	 
+
 //        post("/login", (req, res) -> {
 //            String username = req.queryParams("username");
 //            String nombre = req.queryParams("nombre");
@@ -143,7 +159,6 @@ public class Main {
 //
 //            return "not loged, need to log in";
 //        });//FIN INICIO SESION
-
         post("/login", (req, res) -> {
             String username = req.queryParams("username");
             String nombre = req.queryParams("nombre");
@@ -169,45 +184,64 @@ public class Main {
             } finally {
                 session.close();
             }
-            return new Gson().toJson("Usuario registrado");
+            return "Agregado" + insertID;
 
+        });//FIN LOGIN--------------------------------------------------------------------------------------
+
+        //CLIENTE--------------------------------------------------------------------------------------------
+        get("/cliente", (req, res) -> {
+            res.redirect("createclient.html");
+
+            return null;
         });
-//
-//        post("/cliente", (req, res) -> {
-//            String nombre = req.queryParams("nombre");
-//            String email = req.queryParams("email");
-//            String password = req.queryParams("password");
-//            String direccion = req.queryParams("direccion");
-//            String telefono = req.queryParams("telefono");
-//
-//            int estado = Integer.parseInt(req.queryParams("estado"));
-//
-//            String insertID = "";
-//            Session session = factory.openSession();
-//            Transaction tx = null;
-//
-//            try {
-//                tx = session.beginTransaction();
-//                Cliente cliente = new Cliente(nombre, email, password, direccion, telefono, estado);
-//                insertID = session.save(cliente).toString();
-//                tx.commit();
-//
-//            } catch (HibernateException e) {
-//                if (tx != null) {
-//                    tx.rollback();
-//                }
-//                e.printStackTrace();
-//            } finally {
-//                session.close();
-//            }
-//            return new Gson().toJson("Agregado");
-//        });
 
-//        
+        post("/cliente", (req, res) -> {
+            System.out.println("nombre" + req.queryParams("nombre"));
+            String nombre = req.queryParams("nombre");
+            String email = req.queryParams("email");
+            String password = req.queryParams("password");
+            String direccion = req.queryParams("direccion");
+            String telefono = req.queryParams("telefono");
+
+            int estado = Integer.parseInt(req.queryParams("estado"));
+
+            String insertID = "";
+            Session session = factory.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = session.beginTransaction();
+                Cliente cliente = new Cliente(nombre, email, password, direccion, telefono, estado);
+                insertID = session.save(cliente).toString();
+                tx.commit();
+
+            } catch (HibernateException e) {
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            } finally {
+                session.close();
+            }
+            return "Agregado" + insertID;
+
+        });  //FIN CLIENTE-------------------------------------------------------------------------------------
+
+        //RESERVA----------------------------------------------------------------------------------------------
+        get("/reservar", (req, res) -> {
+            res.redirect("reserva.html");
+            return null;
+        });
+
 //     //hacer reserva   
         post("/reserva", (req, res) -> {
-
-            int IDcliente = Integer.parseInt(req.queryParams("IDcliente"));
+            System.out.println("LLEGO ID CLIENTE: " + req.body());
+            String valores[] = req.body().split("&");
+            for (String valore : valores) {
+                System.out.println("VALORES OBTENIDO:" + valore.split("=")[1]);
+            }
+            System.out.println("idcliente = " + req.queryParams("idcliente"));
+            int IDcliente = Integer.parseInt(req.queryParams("idcliente"));
             String fechallegada = req.queryParams("fechallegada");
             String fechasalida = req.queryParams("fechasalida");
             float costo = Float.parseFloat(req.queryParams("costo"));
@@ -230,9 +264,73 @@ public class Main {
             } finally {
                 session.close();
             }
-            return new Gson().toJson("Agregado");
+            return "Reservado" + insertID;
+        });// FIN RESERVA-------------------------------------------------------------------------------------
+
+        //panel administrativo--------------------------------------------------------------------------------
+        get("/admin", (req, res) -> {
+            res.redirect("admin.html");
+
+            return null;
         });
 
+        post("/admin", (req, res) -> {
+//
+            String nombre = req.queryParams("nombre");
+            String telefono = req.queryParams("telefono");
+            String direccion = req.queryParams("direccion");
+
+            String insertID = "";
+            Session session = factory.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = session.beginTransaction();
+                Hotel hotel = new Hotel(nombre, telefono, direccion);
+                insertID = session.save(hotel).toString();
+                tx.commit();
+
+            } catch (HibernateException e) {
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            } finally {
+                session.close();
+            }
+            return "Agregado" + insertID;
+        });//fin del panel administrativo----------------------------------------------------------------------
+
+        get("/chat", (req, res) -> {
+
+            res.redirect("/index_chat.html");
+            return null;
+        });
+
+    }
+
+    //MODULO DEL CHAT------------------------------------------------------------------------------------------
+    //Sends a message from one user to all users, along with a list of current usernames
+    public static void broadcastMessage(String sender, String message) {
+        userUsernameMap.keySet().stream().filter(org.eclipse.jetty.websocket.api.Session::isOpen).forEach(session -> {
+            try {
+                session.getRemote().sendString(String.valueOf(new JSONObject()
+                        .put("userMessage", createHtmlMessageFromSender(sender, message))
+                        .put("userlist", userUsernameMap.values())
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+//Builds a HTML element with a sender-name, a message, and a timestamp,
+
+    private static String createHtmlMessageFromSender(String sender, String message) {
+        return article().with(
+                b(sender + " says:"),
+                p(message),
+                span().withClass("timestamp").withText(new SimpleDateFormat("HH:mm:ss").format(new Date()))
+        ).render();
     }
 
 }

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <body>
+<head>
+<meta charset="UTF-8">
+</head>
 
-<form action="/login" method="post">
+<form id="formulario" action="/login" method="post">
 Username:  <input type="text" name="username" ><br>
 Password:  <input type="text" name="password" ><br>
 Nombre:    <input type="text" name="nombre"   ><br>
 Email:     <input type="text" name="email"    ><br>
 Genero:    <input type="text" name="genero"   ><br>
 
-<input type="submit" value="Submit">
+<input type="submit" form="formulario" value="Submit">
 </form>
     
 

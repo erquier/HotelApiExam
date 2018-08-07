@@ -25,6 +25,10 @@ public class Usuario {
     public String password;
     public String email;
     public String genero;
+    
+    public Usuario(){
+    
+    }
 
     public Usuario(String username, String nombre, String password, String email, String genero) {
         super();

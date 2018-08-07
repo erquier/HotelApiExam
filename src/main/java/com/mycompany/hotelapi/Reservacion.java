@@ -84,5 +84,9 @@ public class Reservacion {
         this.costo = costo;
     }
     
+    public String toString ()
+    {
+        return this.getIDcliente() + " - " + this.getFechasalida();
+    }
     
 }

@@ -31,6 +31,10 @@
       <mapping class = "com.mycompany.hotelapi.Cliente"/>
       <mapping resource = "reservacion.hbm.xml"/>
       <mapping class = "com.mycompany.hotelapi.Reservacion"/>
+      <mapping resource = "Usuario.hbm.xml"/>
+      <mapping class = "com.mycompany.hotelapi.Usuario"/>
+      <mapping resource = "hotel.hbm.xml"/>
+      <mapping class = "com.mycompany.hotelapi.Hotel"/>
       
    </session-factory>
 </hibernate-configuration>
