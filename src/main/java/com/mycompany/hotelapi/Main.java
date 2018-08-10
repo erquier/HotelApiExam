@@ -132,33 +132,7 @@ public class Main {
 
         });
 
-//        post("/login", (req, res) -> {
-//            String username = req.queryParams("username");
-//            String nombre = req.queryParams("nombre");
-//            String password = req.queryParams("password");
-//            String email = req.queryParams("email");
-//            String genero = req.queryParams("genero");
-//
-//            ArrayList<Usuario> lista = req.session().attribute("username");
-//
-//            if (lista == null) {
-//                return "list equals null , you can't Log in";
-//            }
-//
-//            boolean inicioSesion = false;
-//            for (Usuario u : lista) {
-//
-//                if (u.getNombre() == nombre) {
-//                    req.session().attribute("usuarioIniciado", u);
-//                    inicioSesion = true;
-//                }
-//            }
-//            if (inicioSesion) {
-//                return "Loged in succesfully";
-//            }
-//
-//            return "not loged, need to log in";
-//        });//FIN INICIO SESION
+
         post("/login", (req, res) -> {
             String username = req.queryParams("username");
             String nombre = req.queryParams("nombre");
@@ -193,6 +167,29 @@ public class Main {
             res.redirect("createclient.html");
 
             return null;
+        });
+        
+         get("/ver/:id", (req, res) -> {
+            String id = req.params("id");
+
+            Session session = factory.openSession();
+            Transaction tx = null;
+
+            StringBuilder ret = new StringBuilder();
+
+            try {
+                Cliente cli = (Cliente) session.get(Cliente.class, Integer.parseInt(id));
+              return new Gson().toJson(cli);
+             
+              
+            } catch (HibernateException e) {
+              
+                e.printStackTrace();
+                return e.toString();
+            } finally {
+                session.close();
+            }
+         
         });
 
         post("/cliente", (req, res) -> {

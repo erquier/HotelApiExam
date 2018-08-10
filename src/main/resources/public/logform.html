@@ -2,20 +2,86 @@
 <html>
 <body>
 <head>
-<meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
 </head>
 
-<form id="formulario" action="/login" method="post">
-Username:  <input type="text" name="username" ><br>
-Password:  <input type="text" name="password" ><br>
-Nombre:    <input type="text" name="nombre"   ><br>
-Email:     <input type="text" name="email"    ><br>
-Genero:    <input type="text" name="genero"   ><br>
+<body>
 
-<input type="submit" form="formulario" value="Submit">
+
+<div id="navbar" class="z-depth-2">
+    <img/>
+    <a href="/index.html/">Home</a>
+    <a href="/reserva.html/">Reserve</a>
+    <a href="/login.html/">Login</a>
+    <a href="/admin.html/">Administrative</a>
+    <a href="/index_chat.html/">Chat</a>
+</div>
+
+
+
+
+
+<form id="formulario" action="/login" method="post" class="container center-align">
+    <h2>LOGIN FORM</h2>
+    <br><br>
+
+    <h4>Username</h4>  <input type="text" name="username" /><br>
+    <h4>Password</h4>  <input type="text" name="password" /><br>
+    <h4>Nombre</h4>    <input type="text" name="nombre"   /><br>
+    <h4>Email</h4>     <input type="text" name="email"    /><br>
+    <h4>Genero</h4>    <input type="text" name="genero"   /><br><br>
+
+    <button type="submit" form="formulario" value="Submit" class="btn">LOGIN</button>
 </form>
-    
 
 
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<style>
+    #formulario{
+        margin-top: 150px;
+        margin-bottom: 150px;
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #formulario h4{
+        font-size: 18px;
+    }
+    #formulario input{
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: solid thin black;
+    }
+    #formulario input:focus{
+        border-bottom: solid thin black;
+        outline: none;
+    }
+
+
+
+    #navbar {
+        padding: 20px;
+        background: #0F2027;
+    }
+    #navbar a{
+        padding: 10px 10px;
+        color:white;
+    }
+
+</style>

@@ -4,7 +4,89 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="css/materialize.min.css" type="text/css"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+
+
+<title>Hotels</title>
+<script src= "app.js"></script>
+
+  </head>
+
+  <body>
+
+
+  <div id="navbar" class="z-depth-2">
+    <img/>
+    <a href="/index.html/">Home</a>
+    <a href="/reserva.html/">Reserve</a>
+    <a href="/login.html/">Login</a>
+    <a href="/admin.html/">Administrative</a>
+    <a href="/index_chat.html/">Chat</a>
+  </div>
+
+
+
+
+
+<form id="formulario" action="/reserva" method="post" class="center-align">
+<h2>RESERVAR</h2>
+<br>
+<h4>IDcliente</h4>
+<input type='int' id="IDcliente" column = "IDcliente"/>
+<br>
+<h4>fecha de llegada</h4>
+<input type="date" id="fechallegada" column = "fechallegada"/>
+<br>
+<h4>fecha de salida</h4>
+<input type="date" id="fechasalida" column = "fechasalida"/>
+<br/><br/><br/>
+<h4>costo</h4>
+<input type="float" id="costo" column = "costo"/>
+<br/><br/><br/>
+<button type='submit' form="formulario" value="Registrar" class="btn">Registrar</button>
+</form>
+
+
+<div id="footer" class="z-depth-2" style="">
+  <p>(c) 2018 hotels all rights reserved</p>
+</div>
+
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
+<style>
+/*brackground animation*/
+body{
+  animation: gradient 6s ease-in-out infinite;
+}
+@@keyframes gradient {
+0%{ background: blue;}
+25%{ background: red;}
+50%{ background: yellow;}
+75%{ background: black;}
+
+
+} /*end keyframe*/
+/*end background animation*/<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="css/materialize.min.css" type="text/css"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8">
@@ -30,7 +112,7 @@
 
 
 
-<form id="formulario" method="post" class="center-align">
+<form id="formulario" action="/reserva" method="post" class="center-align">
 <h2>RESERVAR</h2>
 <br>
 <h4>IDcliente</h4>
@@ -80,6 +162,49 @@ body{
 
 } /*end keyframe*/
 /*end background animation*/
+
+
+
+
+#navbar {
+  padding: 20px;
+  background: #0F2027;
+}
+#navbar a{
+  padding: 10px 10px;
+  color:white;
+}
+
+#formulario{
+  margin-top: 150px;
+  margin-bottom: 150px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#formulario h4{
+  font-size: 18px;
+}
+#formulario input{
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: solid thin black;
+}
+#formulario input:focus{
+  border-bottom: solid thin black;
+  outline: none;
+}
+#footer{
+  color:white;
+  background: #0F2027;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 22px;
+}
+</style>
+
 
 
 

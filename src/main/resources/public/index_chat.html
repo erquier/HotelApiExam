@@ -4,14 +4,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WebSockets</title>
     <link rel="stylesheet" href="style.css">
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+
+
+
 </head>
 <body>
-    <div id="chatControls">
+
+
+
+
+
+<div id="navbar" class="z-depth-2">
+    <img/>
+    <a href="/index.html/">Home</a>
+    <a href="/reserva.html/">Reserve</a>
+    <a href="/login.html/">Login</a>
+    <a href="/admin.html/">Administrative</a>
+    <a href="/index_chat.html/">Chat</a>
+</div>
+
+
+
+
+
+
+    <div id="chatControls"class="container">
         <input id="message" placeholder="Type your message">
-        <button id="send">Send</button>
+        <button id="send" class="btn">Send</button>
     </div>
-    <ul id="userlist"> <!-- Built by JS --> </ul>
-    <div id="chat">    <!-- Built by JS --> </div>
+
+    <ul id="userlist" class="container"> <!-- Built by JS --> </ul>
+    <div id="chat" class="container">    <!-- Built by JS --> </div>
     <script src="websocketDemo.js"></script>
+
+
+
+
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<style>
+
+    #userlist{
+        list-style-type: none;
+    }
+    #userlist li{
+        padding: 5px;
+    }
+    #navbar {
+        padding: 20px;
+        background: #0F2027;
+    }
+    #navbar a{
+        padding: 10px 10px;
+        color:white;
+    }
+
+</style>

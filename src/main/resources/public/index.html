@@ -21,12 +21,39 @@
   <a href="/index.html/">Home</a>
   <a href="/reserva.html/">Reserve</a>
   <a href="/login.html/">Login</a>
-  <a href="/admin.html/">Administrativo</a>
+  <a href="/admin.html/">Administrative</a>
+   <a href="/index_chat.html/">Chat</a>
   </div>
 
-<div id="cliente-display" class="center-align">
-<button id="ver-cliente-btn" onclick="verCliente()" class="btn"> Ver </button>
+
+  <div id="hotels-welcome">
+    <h1>WELCOME TO HOTELS</h1>
+  </div>
+
+
+
+<div id="gallery" class="row">
+  <div class="item z-depth-2 card"> <img class="container" src="./images/alfons-morales-656820-unsplash.jpg"/> </div>
+  <div class="item z-depth-2 card"> <img class="container" src="./images/bill-anastas-241386-unsplash.jpg"/> </div>
+  <div class="item z-depth-2 card"> <img class="container" src="./images/francesca-saraco-65449-unsplash.jpg"/> </div>
+  <div class="item z-depth-2 card"> <img class="container" src="./images/manuel-moreno-39516-unsplash.jpg"/> </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="footer" class="z-depth-2" style="bottom:0;">
   <p>(c) 2018 hotels all rights reserved</p>
@@ -36,10 +63,7 @@
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+    <script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
   </body>
 </html>
 
@@ -91,4 +115,60 @@ body{
   margin: 0;
   padding: 22px;
 }
+
+
+
+
+
+  #hotels-welcome{
+
+    width: 100%;
+    background: url("./images/caroline-voelker-495643-unsplash.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color:white;
+    text-align: center;
+    padding: 120px;
+    margin:0;
+
+  }
+  #hotels-welcome h1{
+    color:white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  font-size:55px;
+  }
+
+#gallery{
+  background: #263238;
+  margin: 0;
+  width: 100%;
+  overflow: auto;
+  white-space: nowrap;
+  padding:22px;
+}
+
+#gallery::-webkit-scrollbar{
+  display: none;
+}
+
+
+  .item{
+    display: inline-block;
+    background: white;
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+.item img{
+  max-width: inherit;
+  width: 100%;
+}
+
+
+
+
 </style>
